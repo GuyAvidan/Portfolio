@@ -18,7 +18,7 @@ TARGET = utest
 OBJECTS = utest.o $(SRC_DIR)/game.o $(SRC_DIR)/normalBrick.o $(SRC_DIR)/paddle.o $(SRC_DIR)/ball.o 
 OBJECTS += $(SRC_DIR)/abstractBrick.o $(SRC_DIR)/hardBrick.o $(SRC_DIR)/unbreakableBrick.o 
 OBJECTS += $(SRC_DIR)/level.o  $(SRC_DIR)/score.o $(SRC_DIR)/text.o $(SRC_DIR)/explodingBrick.o $(SRC_DIR)/bonusBrick.o
-OBJECTS += $(SRC_DIR)/bonus.o  $(SRC_DIR)/abstractGem.o $(SRC_DIR)/liveGem.o $(SRC_DIR)/gems.o $(SRC_DIR)/resManager.o
+OBJECTS += $(SRC_DIR)/resManager.o
 
 check: $(TARGET)
 	./$(TARGET)

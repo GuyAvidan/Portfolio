@@ -13,7 +13,6 @@
 #include "ball.hpp"
 #include "paddle.hpp"
 #include "score.hpp"
-#include "bonus.hpp"
 #include "resManager.hpp"
 
 Game::Game(sf::Vector2u a_windowSize, std::string const& a_title, std::string const& a_playerName)
@@ -65,7 +64,6 @@ Game::Game(sf::Vector2u a_windowSize, std::string const& a_title, std::string co
     m_exploding.setTexture(m_resManager.Get(TextureType::EXPLOSION).get());
     m_exploding.setSize(sf::Vector2f(300, 100));
     m_exploding.setOrigin(m_exploding.getSize().x / 2.f, m_exploding.getSize().y / 2.f);
-    m_bonus = Bonus(m_window);
 }
 
 Game::~Game()
@@ -129,12 +127,7 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
-    if(!m_bonus.IsDone())
-    {
-        m_bonus.RunBonus(m_lives, m_score, m_paddle);
-        m_bonus.Draw();
-        
-    } 
+
     CheckWallCollisions();
     CheckBrickCollisions();
     CheckPaddleCollisions();
@@ -152,12 +145,6 @@ void Game::Update()
 
     if (flag)
     {
-        /* if (!m_bonus.IsDone())
-        {
-            m_bonus.RunBonus(m_lives, m_score, m_paddle);
-            m_bonus.Draw();
-            
-        } else { */
             ++m_currentLevel;
             m_lives += 3;
             if(m_currentLevel < 5) {
@@ -217,7 +204,6 @@ void Game::Draw()
         m_scoreText.Draw(m_window);
         m_levelText.Draw(m_window);
         m_livesText.Draw(m_window);
-        m_bonus.Draw();
         
     }
 

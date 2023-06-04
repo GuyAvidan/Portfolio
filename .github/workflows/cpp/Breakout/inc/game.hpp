@@ -10,7 +10,6 @@
 #include "paddle.hpp"
 #include "ball.hpp"
 #include "text.hpp"
-#include "bonus.hpp"
 #include "resManager.hpp"
 
 class Game
@@ -60,7 +59,6 @@ private:
     sf::RectangleShape m_exploding;
     bool m_exploded;
     sf::Vector2f m_LastBallPosition;
-    Bonus m_bonus;
     ResManager m_resManager;
 };
 
