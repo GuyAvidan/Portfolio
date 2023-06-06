@@ -1,0 +1,155 @@
+#include "../../../../advc/genDoubleList/genDoubleList.h"
+#include "../../../../advc/genDoubleList/list_itr.h"
+#include "../../../../advc/genDoubleList/list_functions.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <string.h>
+#include "Protocol.h"
+#include "ClientNet.h"
+#include "UI.h"
+
+
+struct ClientNet
+{
+    int m_activeFlag; 
+    char m_userName[NAME_LEN_MAX+1];
+    char m_passWord[PASS_LEN_MAX+1];
+    int m_portServer;
+    List* m_groups;
+    char m_serverIP[17];
+    int m_sock;
+};
+
+ClientNet *CreateClient(char *_serverIP, int _portServer)
+{
+    ClientNet *myClientNet;
+    if((myClientNet =(ClientNet*)malloc(sizeof(struct ClientNet))) == NULL)
+	{
+		return NULL;
+	}
+    myClientNet->m_activeFlag=0;
+    myClientNet->m_groups=ListCreate();
+    if(myClientNet->m_groups == NULL)
+    {
+        free(myClientNet);
+        return NULL;
+    }
+    strcpy(myClientNet->m_serverIP, _serverIP);
+    myClientNet->m_portServer=_portServer;
+    myClientNet->m_sock;
+    return myClientNet;
+}
+
+int ConnectClient( ClientNet * _clientNet)
+{
+    struct sockaddr_in sin;
+    int choise=0;
+    if(_clientNet == NULL)
+    {
+        return 0;
+    }
+    _clientNet->m_sock=socket(AF_INET, SOCK_STREAM, 0);
+    if (_clientNet->m_sock < 0) 
+    {
+        perror("socket failed");
+        close(_clientNet->m_sock);
+        return 0;
+    }
+    memset(&sin, 0, sizeof(sin));
+    sin.sin_family = AF_INET;
+    sin.sin_addr.s_addr = inet_addr(_clientNet->m_serverIP);
+    sin.sin_port = htons(_clientNet->m_portServer);
+    if (connect(_clientNet->m_sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) 
+    {
+        perror("connection failed");
+        close(_clientNet->m_sock);
+        _clientNet->m_sock=0;
+        return 0;
+    }
+    return 1;
+}
+
+ProtocolErr RecvFunc( ClientNet * _clientNet, char *_tag)
+{
+    int read_bytes;
+    char tag;
+    char packet[PACKET_SIZE], buffer[PACKET_SIZE];
+    
+    read_bytes = recv(_clientNet->m_sock, packet, sizeof(buffer), 0);
+    if (read_bytes <= 0) 
+    {
+        perror("recv closed");
+        close(_clientNet->m_sock);
+        return RECV_ERROR;
+    } else 
+    {
+        tag=buffer[0];
+        switch (tag) 
+        {
+            case REG_OK : {
+                RegSuccess();
+            }
+            case REG_FAIL : {
+                if(!UnPackRegAns( packet, read_bytes, buffer))
+                {
+                    return UNPACKING_ERROR;
+                }
+                RegFail();
+                return REG_ERROR;
+            }
+            case LOGIN_OK : {
+                LoginSuccess();
+            }
+            case LOGIN_FAILED : {
+                if(!UnPackRegAns( packet, read_bytes, buffer))
+                {
+                    return UNPACKING_ERROR;
+                }
+                LoginFail();
+                return LOGIN_ERROR;
+            }
+        }
+    }
+}
+
+ProtocolErr SendFunc( ClientNet * _clientNet, char _tag)
+{
+    int sent_bytes, tag;
+    char *buffer1,*buffer2;    
+    char Packet[PACKET_SIZE];
+    switch (tag) 
+    {
+        case REG_REQUEST : {
+            EnterUserName();
+            scanf("%s",buffer1);
+            strcpy(_clientNet->m_userName,buffer1);
+            EnterPass();
+            scanf("%s",buffer2);
+            strcpy(_clientNet->m_passWord,buffer2);
+            if(!PackRegRequest( REG_REQUEST, buffer1, buffer2, Packet,  strlen(buffer1)+strlen(buffer2)))
+            {
+                return PACKING_ERROR;
+            }
+        }
+        case LOGIN_REQUEST : {
+            EnterUserName();
+            scanf("%s",buffer1);
+            EnterPass();
+            scanf("%s",buffer2);
+            if(!PackRegRequest( LOGIN_REQUEST, buffer1, buffer2, Packet,  strlen(buffer1)+strlen(buffer2)))
+            {
+                return PACKING_ERROR;
+            }
+        }
+    }
+    sent_bytes = send(_clientNet->m_sock, Packet, strlen(Packet), 0);
+    if (sent_bytes < 0) 
+    {
+        perror("send failed");
+        close(_clientNet->m_sock);
+        return SENT_ERROR;
+    }
+    return SUCCESS;    
+}

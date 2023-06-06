@@ -1,0 +1,31 @@
+#makefile ClientManager
+
+TARGET = MainClientManager.out
+CC = gcc
+CFLAGS = -ansi -g -pedantic
+OBJS = Client_manager.o MainClientManager.o UI.o ClientNet.o 
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/guy/prog/GENDS/ 
+#export LD_LIBRARY_PATH
+
+GEN_LIB_PASS = -L/home/moshe-elazar/Desktop/experis/advc/genDS -lgenDL -lm
+
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET) $(GEN_LIB_PASS)libgends.so
+
+MainClientManager.o:MainClientManager.c Client_manager.h ../protocol/protocol.h
+	$(CC) $(CFLAGS) -c MainClientManager.c 
+	
+ClientManager.o:Client_manager.c Client_manager.h ../protocol/protocol.h ClientNet.h UI.h 
+	$(CC) $(CFLAGS) -c Client_manager.c 
+
+Protocol.o: ../protocol/Protocol.c  ../protocol/Protocol.h 
+	$(CC) $(CFLAGS) -c ../protocol/Protocol.c 
+	
+ClientNet.o:ClientNet.c ClientNet.h UI.h ../protocol/protocol.h
+	$(CC) $(CFLAGS) -c ClientNet.c 
+	
+UI.o:UI.c UI.h
+	$(CC) $(CFLAGS) -c UI.c 
+
+clean:
+	rm -f $(TARGET) $(OBJS) 

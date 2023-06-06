@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "Protocol.h"
+#include "ClientNet.h"
+#include "UI.h"
+#include "Client_manager.h"
+
+struct ClientManager
+{
+    ClientNet *m_clientNet;
+    int m_flagStop;
+};
+
+
+ClientManager *CreateClientManager(char *_serverIP, int _portServer)
+{
+    ClientManager *myClientMan;
+    if((myClientMan =(ClientManager*)malloc(sizeof(struct ClientManager))) == NULL)
+	{
+		return NULL;
+	}
+    if( (myClientMan->m_clientNet = (ClientNet*)malloc( sizeof(ClientNet*))) == NULL)
+	{
+		free(myClientMan);
+		return NULL;
+	}
+    if( (myClientMan->m_clientNet = CreateClient(_serverIP,_portServer)) == NULL)
+	{
+		free(myClientMan);
+		return NULL;
+	}
+    myClientMan->m_flagStop=0;
+}
+
+ProtocolErr RunClientManager(ClientManager *_clientManager)
+{
+    int choise=0;
+    ProtocolErr ressult;
+    char tag;
+    if(!ConnectClient(_clientManager->m_clientNet))
+    {
+        return 0;
+    }
+    while (choise<1 || choise>3)
+    {
+        FirstMenu();
+        scanf("%d",&choise);
+        switch (choise) 
+        {
+            case 1: {
+                
+                ressult=SendFunc(_clientManager->m_clientNet,REG_REQUEST);
+                if(ressult != SUCCESS)
+                {
+                    break;
+                }
+                ressult=RecvFunc(_clientManager->m_clientNet,&tag);
+                if(ressult != SUCCESS)
+                {
+                    break;
+                }
+            }
+            case 2: {
+                ressult=SendFunc(_clientManager->m_clientNet,LOGIN_REQUEST);
+                if( ressult != SUCCESS)
+                {
+                    break;
+                }
+                ressult=RecvFunc(_clientManager->m_clientNet,&tag);
+                if( ressult != SUCCESS)
+                {
+                    break;
+                }
+            }
+            case 3: {
+                
+                ressult=PROGRAM_CLOSED;
+                break;
+            }
+        }
+    }
+    if(ressult != SUCCESS)
+    {
+        return ressult;
+    }
+    
+    _clientManager->m_flagStop=1;
+    while (!_clientManager->m_flagStop)
+    {
+        GroupMenu();
+        /* code */
+    }
+}
+
+void DestroyClientManager(ClientManager **myClientMan)
+{
+
+}
+
+
+
+
