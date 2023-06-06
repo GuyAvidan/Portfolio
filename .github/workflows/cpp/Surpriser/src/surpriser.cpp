@@ -5,8 +5,8 @@
 #include <vector>
 #include <cassert>
 
-#include "../inc/surpriser.hpp"
-#include "../inc/surpriserAction.hpp"
+#include "surpriser.hpp"
+#include "surpriserAction.hpp"
 
 
 Surpriser::Surpriser(std::vector<SurpriserAction*> const &a_actions)

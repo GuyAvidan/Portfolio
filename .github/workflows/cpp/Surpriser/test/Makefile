@@ -15,12 +15,12 @@ INC_DIR = ../inc
 
 TARGET = utest
 
-OBJECTS = utest.o $(SRC_DIR)/bell.o $(SRC_DIR)/joke.o $(SRC_DIR)/kaboom.o $(SRC_DIR)/client.o $(SRC_DIR)/surpriser.o 
+OBJECTS = utest.o $(SRC_DIR)/bell.o $(SRC_DIR)/joke.o $(SRC_DIR)/kaboom.o $(SRC_DIR)/surpriser.o 
 
 check: $(TARGET)
 	./$(TARGET) $(ARGS)
 
-$(TARGET): $(OBJECTS) $(SRC_DIR)/bell.o $(SRC_DIR)/joke.o $(SRC_DIR)/kaboom.o $(SRC_DIR)/client.o $(SRC_DIR)/surpriser.o 
+$(TARGET): $(OBJECTS) $(SRC_DIR)/bell.o $(SRC_DIR)/joke.o $(SRC_DIR)/kaboom.o $(SRC_DIR)/surpriser.o 
 
 all: $(TARGET)
 

@@ -9,14 +9,10 @@
 
 static const int NUM_OF_ARGS = 2;
 
-int main(int argc, char *argv[])
+int main()
 {
-    if (argc > NUM_OF_ARGS)
-    {
-        return 1;
-    }
     std::vector<SurpriserAction*> actions;
-    actions.push_back(new Joke{argv[1]});
+    actions.push_back(new Joke);
     actions.push_back(new Kaboom{});
     actions.push_back(new Bell);
     Surpriser surpriser(actions);

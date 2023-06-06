@@ -5,7 +5,7 @@
 
 #include "bell.hpp"
 
-void Bell::Do() const
+void Bell::Go() const
 {
     std::cout << "bell ring\n";
     std::cout << '\a';

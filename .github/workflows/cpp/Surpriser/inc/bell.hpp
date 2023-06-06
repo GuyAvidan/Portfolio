@@ -11,7 +11,7 @@ public:
     Bell() = default ;
     ~Bell() = default ;
 
-    void Do() const;
+    void Go() const;
 };
 
 
