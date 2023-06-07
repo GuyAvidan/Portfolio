@@ -1,0 +1,1 @@
+This project is a group project in which we were required to build a group chat that includes multiple chat groups, a number of users, and each user also had a password. The project showcases both the client-server side and broadcasting to the group.
