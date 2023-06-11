@@ -1,8 +1,6 @@
 # HeartsGame
 I am thrilled to introduce my project on GitHub - the Hearts card game. This repository is dedicated to showcasing a game development project implemented in the C programming language. It is aimed at users who are interested in delving into game development using C and enhancing their programming abilities.
 
-GitHub Repository: [insert repository link]
-
 ## Project Overview
 The Hearts card game is a classic trick-taking game played with a standard deck of cards by four players. The objective of the game is to avoid capturing certain penalty cards while collecting hearts and the queen of spades. Players take turns playing cards from their hands, following specific rules and strategies to win tricks and achieve the lowest score possible. The project serves as an excellent opportunity to explore game development concepts using C.
 
