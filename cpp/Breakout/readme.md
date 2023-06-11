@@ -15,6 +15,6 @@ Our Breakout game project offers the following key features:
 5. Sound Effects and Music: We incorporated sound effects and background music to create an engaging auditory experience, further immersing players in the game.
 6. User Interface: Our game includes a user-friendly interface, displaying game information such as score, lives remaining, and level progression.
 
-![level 1](/res/level1.png)
+![level 1](res/level1.png)
 
-![level 2](/res/level2.png)
+![level 2](res/level2.png)
