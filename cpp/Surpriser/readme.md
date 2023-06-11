@@ -1,10 +1,11 @@
+# **My Surprise Box**
 Welcome to the GitHub repository showcasing my Surprise Box project! This repository is dedicated to presenting a simple yet intriguing project that demonstrates the power of Object-Oriented Programming (OOP) in generating a different result every time it is run, with surprise options such as jokes, kaboom, and bell rings.
 
-**Project Overview**
+## **Project Overview**
 
 My Surprise Box project is designed to provide an element of surprise and randomness with each execution. When running the project, you can expect a unique output or experience, ranging from jokes to unexpected kabooms or delightful bell rings. By leveraging the principles of OOP, I have created a dynamic and engaging program that showcases the versatility of object-oriented design.
 
-**Key Features**
+## **Key Features**
 
 My Surprise Box project offers the following key features:
 
