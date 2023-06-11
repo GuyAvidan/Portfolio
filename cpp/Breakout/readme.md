@@ -1,10 +1,12 @@
+# **Breakout**
+
 Welcome to the GitHub repository showcasing our Breakout game project implemented in C++! This repository is dedicated to presenting the Breakout game that we developed as a team, combining our skills and creativity to create an enjoyable gaming experience.
 
-**Project Overview**
+## **Project Overview**
 
 As part of our collaborative efforts, we embarked on developing a Breakout game using the C++ programming language. The Breakout game is a classic arcade game where players control a paddle to bounce a ball and break bricks. Our goal was to implement an engaging and visually appealing version of the game while incorporating essential gaming concepts and mechanics.
 
-**Key Features**
+## **Key Features**
 
 Our Breakout game project offers the following key features:
 
@@ -15,6 +17,7 @@ Our Breakout game project offers the following key features:
 5. Sound Effects and Music: We incorporated sound effects and background music to create an engaging auditory experience, further immersing players in the game.
 6. User Interface: Our game includes a user-friendly interface, displaying game information such as score, lives remaining, and level progression.
 
+## **Photos**
 ![level 1](res/level1.png)
 
 ![level 2](res/level2.png)
