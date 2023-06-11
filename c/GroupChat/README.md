@@ -1,4 +1,4 @@
-# GroupChat
+# Group Chat
 
 Welcome to my project on GitHub - the Group Chat application. This repository is dedicated to showcasing a robust group chat system developed as a group project. Our task was to create a chat application that supports multiple chat groups, a diverse user base, and password-protected user accounts. The project demonstrates the implementation of a client-server architecture and broadcasting functionality to the entire group.
 
